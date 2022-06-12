@@ -5,12 +5,7 @@ import java.awt.event.ActionListener;
 
 class CalcFrame implements ActionListener {
 
-    // flag prevents typing multiple dots
-
-    int flag = 0;
-
-    //declare frame, panels, and text field
-
+    int flag = 0;       // flag prevents typing multiple dots
     JPanel panelBottom;
     JLabel label;
     JFrame frame;
@@ -18,35 +13,10 @@ class CalcFrame implements ActionListener {
     JPanel panelOperators;
     JTextField field;
     JButton[] numberButtons;
+    JButton[] operatorButtons;
     Font myFont;
     double num1 = 0, num2 = 0, result = 0;
     char operator;
-
-    //declare operators buttons
-
-    JButton ceButton;
-    JButton cButton;
-    JButton percentButton;
-    JButton divisionButton;
-    JButton plusButton;
-    JButton multButton;
-    JButton minusButton;
-    JButton equalButton;
-
-    //declare number buttons
-
-    JButton button7;
-    JButton button8;
-    JButton button9;
-    JButton button4;
-    JButton button5;
-    JButton button6;
-    JButton button1;
-    JButton button2;
-    JButton button3;
-    JButton buttonPlusMinus;
-    JButton button0;
-    JButton buttonDot;
 
     //create calculator constructor
 
@@ -56,136 +26,82 @@ class CalcFrame implements ActionListener {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setSize(300, 300);
+        frame.setSize(300, 330);
         frame.setResizable(false);
         frame.setLayout(new FlowLayout());
 
-        //initialize panels and text field
-
         panelNumbers = new JPanel();
         panelOperators = new JPanel();
-        field = new JTextField(18);
-        field.setEditable(false);
-        field.setFont(myFont);
-
-        //initialize functional buttons
-
-        ceButton = new JButton("CE");
-        cButton = new JButton("C");
-        percentButton = new JButton("%");
-        divisionButton = new JButton("/");
-        plusButton = new JButton("+");
-        multButton = new JButton("*");
-        minusButton = new JButton("-");
-        equalButton = new JButton("=");
-
-        //initialize number buttons
-
-        button7 = new JButton("7");
-        button8 = new JButton("8");
-        button9 = new JButton("9");
-        button4 = new JButton("4");
-        button5 = new JButton("5");
-        button6 = new JButton("6");
-        button1 = new JButton("1");
-        button2 = new JButton("2");
-        button3 = new JButton("3");
-        buttonPlusMinus = new JButton("+/-");
-        button0 = new JButton("0");
-        buttonDot = new JButton(".");
-        label = new JLabel("© Created by Dmitrii Sumenko  2020");
-        label.setEnabled(true);
-        label.setHorizontalTextPosition(SwingConstants.CENTER);
         panelBottom = new JPanel();
 
 
+        field = new JTextField(19);
+        field.setEditable(false);
+        field.setFont(myFont);
+
+        label = new JLabel("© Created by Dmitrii Sumenko  2022");
+        label.setFont(new Font("monospaced", Font.BOLD, 14));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setEnabled(true);
+        label.setHorizontalTextPosition(SwingConstants.CENTER);
+        label.setVerticalTextPosition(SwingConstants.CENTER);
+        panelBottom.add(label);
         //create array of buttons for easier work after
 
         numberButtons = new JButton[12];
-        numberButtons[0] = button0;
-        numberButtons[1] = button1;
-        numberButtons[2] = button2;
-        numberButtons[3] = button3;
-        numberButtons[4] = button4;
-        numberButtons[5] = button5;
-        numberButtons[6] = button6;
-        numberButtons[7] = button7;
-        numberButtons[8] = button8;
-        numberButtons[9] = button9;
-        numberButtons[10] = buttonDot;
-        numberButtons[11] = buttonPlusMinus;
 
-        //adding number buttons to number panel
+        numberButtons[0] = new JButton("0");
+        numberButtons[1] = new JButton("1");
+        numberButtons[2] = new JButton("2");
+        numberButtons[3] = new JButton("3");
+        numberButtons[4] = new JButton("4");
+        numberButtons[5] = new JButton("5");
+        numberButtons[6] = new JButton("6");
+        numberButtons[7] = new JButton("7");
+        numberButtons[8] = new JButton("8");
+        numberButtons[9] = new JButton("9");
+        numberButtons[10] = new JButton("+/-");
+        numberButtons[11] = new JButton(".");
 
-        panelNumbers.add(button7);
-        panelNumbers.add(button8);
-        panelNumbers.add(button9);
-        panelNumbers.add(button4);
-        panelNumbers.add(button5);
-        panelNumbers.add(button6);
-        panelNumbers.add(button1);
-        panelNumbers.add(button2);
-        panelNumbers.add(button3);
-        panelNumbers.add(buttonPlusMinus);
-        panelNumbers.add(button0);
-        panelNumbers.add(buttonDot);
-        panelBottom.add(label);
+        operatorButtons = new JButton[8];
 
+        operatorButtons[0] = new JButton("CE");
+        operatorButtons[1]= new JButton("C");
+        operatorButtons[2] = new JButton("%");
+        operatorButtons[3] = new JButton("/");
+        operatorButtons[4] = new JButton("+");
+        operatorButtons[5] = new JButton("*");
+        operatorButtons[6] = new JButton("-");
+        operatorButtons[7] = new JButton("=");
 
-        //adding operators buttons to operators panel
+        for(int i = 0; i < 12; i++){
+            panelNumbers.add(numberButtons[i]);
+            numberButtons[i].addActionListener(this);
+        }
 
-        panelOperators.add(ceButton);
-        panelOperators.add(cButton);
-        panelOperators.add(percentButton);
-        panelOperators.add(divisionButton);
-        panelOperators.add(plusButton);
-        panelOperators.add(multButton);
-        panelOperators.add(minusButton);
-        panelOperators.add(equalButton);
-
-        //adding action listener to number buttons
-
-        button7.addActionListener(this);
-        button8.addActionListener(this);
-        button9.addActionListener(this);
-        button4.addActionListener(this);
-        button5.addActionListener(this);
-        button6.addActionListener(this);
-        button1.addActionListener(this);
-        button2.addActionListener(this);
-        button3.addActionListener(this);
-        buttonPlusMinus.addActionListener(this);
-        button0.addActionListener(this);
-        buttonDot.addActionListener(this);
-
-        //adding action listener to operators buttons
-
-        ceButton.addActionListener(this);
-        cButton.addActionListener(this);
-        percentButton.addActionListener(this);
-        divisionButton.addActionListener(this);
-        plusButton.addActionListener(this);
-        multButton.addActionListener(this);
-        minusButton.addActionListener(this);
-        equalButton.addActionListener(this);
-
-        //adding panels and text field to frame
+        for(int i = 0; i < 8; i++){
+            panelOperators.add(operatorButtons[i]);
+            operatorButtons[i].addActionListener(this);
+        }
 
         frame.add(field);
         frame.add(panelNumbers);
         frame.add(panelOperators);
         frame.add(panelBottom);
 
-        //set size of buttons
-
-        button0.setPreferredSize(new Dimension(40, 40));
-        equalButton.setPreferredSize(new Dimension(40, 40));
+        for(int i = 0; i < 12; i++){
+            numberButtons[i].setPreferredSize(new Dimension(50, 50));
+        }
+        for(int i = 0; i < 8; i++){
+            operatorButtons[i].setPreferredSize(new Dimension(50, 50));
+        }
 
         //set backgrounds
 
         field.setBackground(Color.YELLOW);
         panelOperators.setBackground(Color.CYAN);
         panelNumbers.setBackground(Color.CYAN);
+        panelBottom.setSize(50, 50);
 
         //set layouts for panels
 
@@ -193,7 +109,6 @@ class CalcFrame implements ActionListener {
         panelNumbers.setLayout(new GridLayout(4, 3, 4, 4));
 
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -209,7 +124,7 @@ class CalcFrame implements ActionListener {
 
         if(flag == 0) {
 
-            if (e.getSource() == buttonDot) {
+            if (e.getSource() == numberButtons[11]) {
                 field.setText(field.getText().concat("."));
                 flag = 1;
             }
@@ -220,8 +135,7 @@ class CalcFrame implements ActionListener {
 
         // deals with action commands operators
 
-
-        if (e.getSource() == plusButton) {
+        if (e.getSource() == operatorButtons[4]) {
 
             num1 = Double.parseDouble(field.getText());
             operator = '+';
@@ -229,38 +143,35 @@ class CalcFrame implements ActionListener {
             flag = 0;
         }
 
-        if (e.getSource() == minusButton) {
-
+        if (e.getSource() == operatorButtons[6]) {
             num1 = Double.parseDouble(field.getText());
             operator = '-';
             field.setText("");
             flag = 0;
         }
 
-        if (e.getSource() == multButton) {
-
+        if (e.getSource() == operatorButtons[5]) {
             num1 = Double.parseDouble(field.getText());
             operator = '*';
             field.setText("");
             flag = 0;
         }
 
-        if (e.getSource() == divisionButton) {
-
+        if (e.getSource() == operatorButtons[3]) {
             num1 = Double.parseDouble(field.getText());
             operator = '/';
             field.setText("");
             flag = 0;
         }
 
-        if (e.getSource() == percentButton) {
+        if (e.getSource() == operatorButtons[2]) {
             num1 = Double.parseDouble(field.getText());
             operator = '%';
             field.setText("");
             flag = 0;
         }
 
-        if (e.getSource() == equalButton) {
+        if (e.getSource() == operatorButtons[7]) {
             num2 = Double.parseDouble(field.getText());
 
             switch (operator) {
@@ -277,10 +188,11 @@ class CalcFrame implements ActionListener {
             flag = 0;
         }
 
-        if (e.getSource() == ceButton) {
+        if (e.getSource() == operatorButtons[0]) {
             field.setText("");
         }
-        if (e.getSource() == cButton) {
+
+        if (e.getSource() == operatorButtons[1]) {
             String string = field.getText();
             field.setText("");
 
@@ -291,14 +203,13 @@ class CalcFrame implements ActionListener {
 
         }
 
-        if (e.getSource() == buttonPlusMinus) {
+        if (e.getSource() == numberButtons[10]) {
             double temp = Double.parseDouble(field.getText());
             temp *= -1;
             field.setText(String.valueOf(temp));
             flag = 0;
         }
     }
-
 
     public static void main(String[] args) {
 
