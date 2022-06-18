@@ -1,9 +1,10 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class CalcFrame implements ActionListener {
+class CalcFrame extends Thread implements ActionListener  {
 
     int flag = 0;       // flag prevents typing multiple dots
     JPanel panelBottom;
@@ -39,13 +40,15 @@ class CalcFrame implements ActionListener {
         field.setEditable(false);
         field.setFont(myFont);
 
-        label = new JLabel("© Created by Dmitrii Sumenko  2022");
-        label.setFont(new Font("monospaced", Font.BOLD, 14));
+        label = new JLabel("  © Created by Dmitrii Sumenko  2022  ");
+        label.setFont(new Font("Arial", Font.BOLD, 14));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setEnabled(true);
+        label.setEnabled(false);
+        label.setBorder(BorderFactory.createEtchedBorder());
         label.setHorizontalTextPosition(SwingConstants.CENTER);
         label.setVerticalTextPosition(SwingConstants.CENTER);
         panelBottom.add(label);
+
         //create array of buttons for easier work after
 
         numberButtons = new JButton[12];
