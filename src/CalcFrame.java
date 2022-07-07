@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +34,6 @@ class CalcFrame extends Thread implements ActionListener  {
         panelOperators = new JPanel();
         panelBottom = new JPanel();
 
-
         field = new JTextField(19);
         field.setEditable(false);
         field.setFont(myFont);
@@ -53,16 +51,10 @@ class CalcFrame extends Thread implements ActionListener  {
 
         numberButtons = new JButton[12];
 
-        numberButtons[0] = new JButton("0");
-        numberButtons[1] = new JButton("1");
-        numberButtons[2] = new JButton("2");
-        numberButtons[3] = new JButton("3");
-        numberButtons[4] = new JButton("4");
-        numberButtons[5] = new JButton("5");
-        numberButtons[6] = new JButton("6");
-        numberButtons[7] = new JButton("7");
-        numberButtons[8] = new JButton("8");
-        numberButtons[9] = new JButton("9");
+        for(int i = 0; i <= 9; i++){
+            numberButtons[i] = new JButton("" + i);
+        }
+
         numberButtons[10] = new JButton("+/-");
         numberButtons[11] = new JButton(".");
 
@@ -77,8 +69,22 @@ class CalcFrame extends Thread implements ActionListener  {
         operatorButtons[6] = new JButton("-");
         operatorButtons[7] = new JButton("=");
 
+        // add numbers in right order
+
+        panelNumbers.add(numberButtons[7]);
+        panelNumbers.add(numberButtons[8]);
+        panelNumbers.add(numberButtons[9]);
+        panelNumbers.add(numberButtons[4]);
+        panelNumbers.add(numberButtons[5]);
+        panelNumbers.add(numberButtons[6]);
+        panelNumbers.add(numberButtons[1]);
+        panelNumbers.add(numberButtons[2]);
+        panelNumbers.add(numberButtons[3]);
+        panelNumbers.add(numberButtons[10]);
+        panelNumbers.add(numberButtons[0]);
+        panelNumbers.add(numberButtons[11]);
+
         for(int i = 0; i < 12; i++){
-            panelNumbers.add(numberButtons[i]);
             numberButtons[i].addActionListener(this);
         }
 
@@ -110,7 +116,6 @@ class CalcFrame extends Thread implements ActionListener  {
 
         panelOperators.setLayout(new GridLayout(4, 2, 4, 4));
         panelNumbers.setLayout(new GridLayout(4, 3, 4, 4));
-
     }
 
     @Override
@@ -122,7 +127,6 @@ class CalcFrame extends Thread implements ActionListener  {
             if (e.getSource() == numberButtons[i]) {
                 field.setText(field.getText().concat(String.valueOf(i)));
             }
-
         }
 
         if(flag == 0) {
@@ -203,7 +207,6 @@ class CalcFrame extends Thread implements ActionListener  {
 
                 field.setText(field.getText() + string.charAt(i));
             }
-
         }
 
         if (e.getSource() == numberButtons[10]) {
@@ -217,6 +220,5 @@ class CalcFrame extends Thread implements ActionListener  {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(CalcFrame::new);
-
     }
 }
